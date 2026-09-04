@@ -1,0 +1,11 @@
+{
+  "run_id": "85f38a365ee74eac9fdafb4db54ef850",
+  "topic": "Introduction to RAG",
+  "final_status": "PASSED",
+  "attempts": 2,
+  "retries_used": 1,
+  "demo_mode": true,
+  "rubric_version": "1.1.0",
+  "memory_guidance": [],
+  "completed_at": "2026-09-04T08:16:45.951814+00:00"
+}

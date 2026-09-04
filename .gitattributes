@@ -1,0 +1,2 @@
+# Preserve model-generated Markdown exactly as it appeared during evaluation.
+outputs/runs/**/final_lesson.md whitespace=-blank-at-eol

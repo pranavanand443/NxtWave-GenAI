@@ -1,0 +1,13 @@
+[
+  {
+    "run_id": "85f38a365ee74eac9fdafb4db54ef850",
+    "topic": "Introduction to RAG",
+    "attempt": 1,
+    "criterion": "technical_accuracy",
+    "reason": "The lesson contains a major technical inaccuracy by stating that RAG permanently updates model weights with every retrieved document, directly contradicting how RAG operates at inference time without retraining or fine-tuning the base model.",
+    "evidence": "RAG permanently trains and changes the language model's weights using every retrieved document before it answers.",
+    "recommended_correction": "Remove or correct the final statement to clearly state that RAG operates at inference time and does not update or change the internal parameters or weights of the underlying language model.",
+    "demo_mode": true,
+    "rejected_at": "2026-09-04T08:15:16.029385+00:00"
+  }
+]
