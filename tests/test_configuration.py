@@ -33,10 +33,10 @@ def test_max_attempts_is_initial_plus_retries() -> None:
 def test_settings_use_google_key_and_gemini_model(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("GOOGLE_API_KEY", "primary-key")
     monkeypatch.setenv("GEMINI_API_KEY", "fallback-key")
-    monkeypatch.setenv("GEMINI_MODEL", "gemini-3.6-flash")
+    monkeypatch.setenv("GEMINI_MODEL", "gemini-3.7-flash")
     settings = Settings.from_env()
     assert settings.api_key == "primary-key"
-    assert settings.model_name == "gemini-3.6-flash"
+    assert settings.model_name == "gemini-3.7-flash"
 
 
 def test_gemini_provider_constructs_without_a_network_call() -> None:

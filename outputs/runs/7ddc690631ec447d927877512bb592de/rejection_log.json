@@ -1,0 +1,13 @@
+[
+  {
+    "run_id": "7ddc690631ec447d927877512bb592de",
+    "topic": "Introduction to RAG",
+    "attempt": 1,
+    "criterion": "technical_accuracy",
+    "reason": "The lesson includes a direct factual contradiction and material error by claiming that RAG permanently trains and modifies the model's weights with retrieved documents.",
+    "evidence": "RAG permanently trains and changes the language model's weights using every retrieved document before it answers.",
+    "recommended_correction": "Remove or correct the final statement to clearly reaffirm that RAG does not alter, train, or update the model's underlying weights.",
+    "demo_mode": true,
+    "rejected_at": "2026-09-04T09:09:41.964882+00:00"
+  }
+]

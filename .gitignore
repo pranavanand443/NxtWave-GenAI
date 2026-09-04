@@ -30,6 +30,8 @@ outputs/runs/*
 !outputs/runs/4697a65785824f4e882c2a3dbe162090/**
 !outputs/runs/85f38a365ee74eac9fdafb4db54ef850/
 !outputs/runs/85f38a365ee74eac9fdafb4db54ef850/**
+!outputs/runs/7ddc690631ec447d927877512bb592de/
+!outputs/runs/7ddc690631ec447d927877512bb592de/**
 
 # Editors / OS
 .vscode/

@@ -18,7 +18,7 @@ class Settings:
     """Runtime settings shared by generation, evaluation, and persistence."""
 
     api_key: str | None
-    model_name: str = "gemini-3.6-flash"
+    model_name: str = "gemini-3.7-flash"
     request_timeout_seconds: float = 60.0
     provider_max_retries: int = 2
     workflow_max_retries: int = 2
@@ -37,7 +37,7 @@ class Settings:
         load_dotenv()
         return cls(
             api_key=os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY") or None,
-            model_name=os.getenv("GEMINI_MODEL", "gemini-3.6-flash"),
+            model_name=os.getenv("GEMINI_MODEL", "gemini-3.7-flash"),
             request_timeout_seconds=float(os.getenv("MODEL_TIMEOUT_SECONDS", "60")),
             provider_max_retries=int(os.getenv("MODEL_MAX_RETRIES", "2")),
             workflow_max_retries=int(os.getenv("WORKFLOW_MAX_RETRIES", "2")),

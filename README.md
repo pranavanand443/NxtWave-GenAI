@@ -272,7 +272,7 @@ Edit `.env` and replace the placeholder:
 
 ```dotenv
 GOOGLE_API_KEY=your-real-key
-GEMINI_MODEL=gemini-3.6-flash
+GEMINI_MODEL=gemini-3.7-flash
 ```
 
 `.env`, the generated SQLite database, and rewritable stable outputs are ignored. The two audited
@@ -345,22 +345,27 @@ of earlier evidence while keeping the demonstration paths convenient.
 ## Verified Execution
 
 A locally configured Gemini free-tier key was used for genuine end-to-end verification on
-4 September 2026. Both documented modes completed with `gemini-3.6-flash`:
+4 September 2026. The current default is `gemini-3.7-flash`; Google lists its Free Tier input and
+output as free of charge, and it supports the native structured output used by the evaluator.
+Verified runs include:
 
-- normal run `4697a65785824f4e882c2a3dbe162090`: all six criteria passed on attempt 1;
-- deliberate-error run `85f38a365ee74eac9fdafb4db54ef850`: Technical Accuracy failed on
+- normal run `4697a65785824f4e882c2a3dbe162090` on the previous 3.6 default: all six criteria
+  passed on attempt 1;
+- deliberate-error run `7ddc690631ec447d927877512bb592de` on the current 3.7 default:
+  Technical Accuracy failed on
   attempt 1 because the injected sentence falsely claimed that retrieval changes model weights;
   evaluator feedback drove attempt 2, where all six criteria passed.
 
-The stable files in `outputs/` contain the normal result, while both immutable run
-snapshots remain under `outputs/runs/`. An earlier evaluator request received a temporary Gemini
-`503 UNAVAILABLE` high-demand response; rerunning the same workflow later completed successfully.
+The stable files in `outputs/` contain the current deliberate-error result, while immutable run
+snapshots remain under `outputs/runs/`. Earlier 3.6 calls also demonstrated both successful runs
+and temporary `503 UNAVAILABLE`/`429 RESOURCE_EXHAUSTED` provider conditions; no paid fallback was
+used.
 
 The following is genuine deterministic-suite output from the same date:
 
 ```text
 ........................                                                 [100%]
-24 passed in 0.78s
+24 passed in 0.83s
 ```
 
 Before the key was configured, the CLI's missing-credential guard was independently verified:

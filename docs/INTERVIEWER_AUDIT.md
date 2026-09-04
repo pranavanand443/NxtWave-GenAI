@@ -17,7 +17,7 @@ artifacts were inspected after each live run.
 ## Zero-cost provider revision
 
 The original OpenAI provider was replaced—not supplemented—with Gemini as the single production
-provider after the user required zero API spend. `gemini-3.6-flash` is the default because Google's
+provider after the user required zero API spend. `gemini-3.7-flash` is the default because Google's
 current pricing page lists free input and output tokens within Free Tier limits. The project uses
 Gemini's native JSON-schema structured output and retains the same Pydantic validation and provider
 protocol. An account-bound key was configured locally and used to verify both workflows without
@@ -97,8 +97,8 @@ credentials.
 | Deterministic tests | 24 tests; no API calls | PASS |
 | Documentation | README, matching Mermaid graph, commands, limitations, Loom script | PASS |
 | Secret hygiene | `.env` ignored; `.env.example` tracked candidate; no key-like value found | PASS |
-| Live normal run | Run `4697a65785824f4e882c2a3dbe162090`; rubric v1.1.0; six criteria passed on attempt 1 | PASS |
-| Live deliberate-error run | Run `85f38a365ee74eac9fdafb4db54ef850`; rubric v1.1.0; seeded misconception failed attempt 1 and corrected attempt 2 passed | PASS |
+| Live normal run | Run `4697a65785824f4e882c2a3dbe162090`; Gemini 3.6; rubric v1.1.0; six criteria passed on attempt 1 | PASS |
+| Live deliberate-error run | Run `7ddc690631ec447d927877512bb592de`; current Gemini 3.7 default; seeded misconception failed attempt 1 and corrected attempt 2 passed | PASS |
 
 ## Verification evidence
 
@@ -115,16 +115,17 @@ Commands run after the HIGH fixes:
 Observed results:
 
 ```text
-24 passed in 0.78s
+24 passed in 0.83s
 All checks passed!
 compileall exit code 0
 normal: PASSED, 1 attempt, all six criteria passed
 deliberate-error: PASSED, 2 attempts; Technical Accuracy alone failed first, then all six passed
 ```
 
-The normal run snapshot and stable latest-run files are under
-`outputs/runs/4697a65785824f4e882c2a3dbe162090/` and `outputs/`. The deliberate-error snapshot is
-preserved under `outputs/runs/85f38a365ee74eac9fdafb4db54ef850/`.
+The normal 3.6 snapshot is preserved under
+`outputs/runs/4697a65785824f4e882c2a3dbe162090/`. The current 3.7 deliberate-error snapshot and
+stable latest-run files are under `outputs/runs/7ddc690631ec447d927877512bb592de/`
+and `outputs/`; the earlier 3.6 demo evidence also remains preserved.
 Their summaries, histories, rejection logs, final lessons, schema consistency, and secret hygiene
 were inspected. One earlier evaluator request received Gemini's temporary `503 UNAVAILABLE`
 high-demand response; the unchanged workflow completed successfully when retried.

@@ -59,7 +59,7 @@ class GeminiModelProvider:
             "request_timeout": settings.request_timeout_seconds,
             "retries": settings.provider_max_retries,
         }
-        # Gemini 3.6 Flash uses fixed sampling defaults. Omitting temperature keeps
+        # Gemini 3 Flash models use fixed sampling defaults. Omitting temperature keeps
         # the client quiet and lets the model apply its supported configuration.
         self._generator = ChatGoogleGenerativeAI(**common)
         evaluator_model = ChatGoogleGenerativeAI(**common)
