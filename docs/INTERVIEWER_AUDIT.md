@@ -94,7 +94,7 @@ credentials.
 | CLI observability | Attempts, criteria, reasons, decisions, memory, status, paths | PASS |
 | Output persistence | Atomic per-file writes; stable latest paths and run-specific preservation | PASS |
 | Missing/malformed behavior | Early credential error, malformed structured response error, empty response error | PASS |
-| Deterministic tests | 23 tests; no API calls | PASS |
+| Deterministic tests | 24 tests; no API calls | PASS |
 | Documentation | README, matching Mermaid graph, commands, limitations, Loom script | PASS |
 | Secret hygiene | `.env` ignored; `.env.example` tracked candidate; no key-like value found | PASS |
 | Live normal run | Run `4697a65785824f4e882c2a3dbe162090`; rubric v1.1.0; six criteria passed on attempt 1 | PASS |
@@ -115,7 +115,7 @@ Commands run after the HIGH fixes:
 Observed results:
 
 ```text
-23 passed in 1.10s
+24 passed in 0.78s
 All checks passed!
 compileall exit code 0
 normal: PASSED, 1 attempt, all six criteria passed
@@ -136,6 +136,10 @@ handling. The generator requirements and Technical Accuracy rubric were hardened
 The compiled graph's own Mermaid output was also inspected. It contained exactly the expected
 `START → load_memory → generate → evaluate`, pass/fail branches, retry/exhausted branches, and
 `finalize → END` topology documented in the README.
+
+A later run under the interactive Windows account exposed an ACL conflict in pytest's default
+global temporary directory. Pytest now uses the ignored project-local `.pytest-tmp/` directory
+with its optional cache disabled; the complete 24-test suite passed under that account.
 
 ## Final audit judgment
 

@@ -31,9 +31,9 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "-q"
+addopts = "-q --basetemp=.pytest-tmp -p no:cacheprovider"
 testpaths = ["tests"]
-markers = ["live: explicitly enabled test that makes paid model API calls"]
+markers = ["live: explicitly enabled test that makes a real model API call"]
 
 [tool.ruff]
 line-length = 100

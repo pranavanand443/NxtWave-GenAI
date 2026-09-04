@@ -10,6 +10,19 @@ from .config import Settings
 from .exceptions import EvaluatorResponseError, ModelGenerationError
 from .schemas import LessonEvaluation
 
+RATE_LIMIT_MESSAGE = (
+    "Gemini free-tier quota is currently exhausted (429 RESOURCE_EXHAUSTED). "
+    "Check https://ai.dev/rate-limit and retry after the displayed reset time. "
+    "This application does not fall back to a paid model."
+)
+
+
+def _provider_error_detail(exc: Exception) -> str:
+    detail = str(exc)
+    if "RESOURCE_EXHAUSTED" in detail or "free_tier_requests" in detail:
+        return RATE_LIMIT_MESSAGE
+    return detail
+
 
 class ModelProvider(Protocol):
     """Small seam used by production Gemini calls and deterministic test fakes."""
@@ -63,7 +76,9 @@ class GeminiModelProvider:
             )
             lesson = _extract_text(response.content)
         except Exception as exc:  # provider errors differ by SDK/version
-            raise ModelGenerationError(f"Lesson generation failed: {exc}") from exc
+            raise ModelGenerationError(
+                f"Lesson generation failed: {_provider_error_detail(exc)}"
+            ) from exc
         if not lesson:
             raise ModelGenerationError("Lesson generation returned empty content.")
         return lesson
@@ -82,7 +97,9 @@ class GeminiModelProvider:
                 f"Evaluator returned malformed structured output: {exc}"
             ) from exc
         except Exception as exc:  # provider errors differ by SDK/version
-            raise EvaluatorResponseError(f"Evaluator model call failed: {exc}") from exc
+            raise EvaluatorResponseError(
+                f"Evaluator model call failed: {_provider_error_detail(exc)}"
+            ) from exc
 
 
 def build_model_provider(settings: Settings) -> ModelProvider:

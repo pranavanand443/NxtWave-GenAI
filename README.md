@@ -305,6 +305,13 @@ reject the explicit misconception, inspect the saved evaluation rather than clai
 not silently switch to a paid model; select another free-tier model through `GEMINI_MODEL` only
 after checking the current pricing page.
 
+### Free-tier quota errors
+
+`429 RESOURCE_EXHAUSTED` means the configured model's free request quota is temporarily exhausted;
+it is not a workflow failure. Check [Google AI Studio usage](https://ai.dev/rate-limit), wait for
+the displayed reset, and rerun. Repeated immediate retries consume time but cannot increase the
+quota. The application deliberately has no automatic paid-model fallback.
+
 ## Running Tests
 
 ```powershell
@@ -318,6 +325,10 @@ representation, deterministic aggregation and routing, retry accounting and exha
 and rejection preservation, feedback propagation, SQLite read/write memory, guidance injection,
 demo isolation and evaluator traversal, missing credentials, malformed structured output, empty
 and undersized lessons, artifact persistence, and finite termination.
+
+Pytest is configured to use the project-local ignored directory `.pytest-tmp/` and to disable its
+optional cache. This avoids Windows ACL conflicts with a stale `%TEMP%\pytest-of-<user>` directory
+and does not change test behavior.
 
 ## Generated Outputs
 
@@ -348,8 +359,8 @@ snapshots remain under `outputs/runs/`. An earlier evaluator request received a 
 The following is genuine deterministic-suite output from the same date:
 
 ```text
-.......................                                                  [100%]
-23 passed in 1.10s
+........................                                                 [100%]
+24 passed in 0.78s
 ```
 
 Before the key was configured, the CLI's missing-credential guard was independently verified:

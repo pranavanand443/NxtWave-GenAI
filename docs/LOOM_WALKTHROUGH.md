@@ -1,8 +1,11 @@
 # Loom Walkthrough: 15–20 Minutes
 
-Use a face-visible layout with the terminal and editor readable beside the camera. Run both live
-commands before recording, confirm billing/quotas, and clear or archive old `outputs/` files so the
-artifacts shown belong to the recorded run. Do not show `.env` or any API key.
+Use a face-visible layout with the terminal and editor readable beside the camera. Before
+recording, confirm that the configured model has remaining requests at
+<https://ai.dev/rate-limit>. A `429 RESOURCE_EXHAUSTED` response is a Free Tier quota condition;
+wait for its reset rather than enabling billing or repeatedly rerunning the command. Run the live
+commands during the recording, use the new run-specific output directory they print, and do not
+delete the preserved audited evidence. Never show `.env` or any API key.
 
 ## 0–2 min — Problem and objective
 

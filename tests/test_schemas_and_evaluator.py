@@ -82,6 +82,11 @@ class _EmptyGeneratorModel:
         return _EmptyMessage()
 
 
+class _RateLimitedGeneratorModel:
+    def invoke(self, _messages: object, **_kwargs: object) -> _EmptyMessage:
+        raise RuntimeError("429 RESOURCE_EXHAUSTED: free_tier_requests limit reached")
+
+
 def test_malformed_structured_output_has_clear_error() -> None:
     provider = GeminiModelProvider.__new__(GeminiModelProvider)
     structured_model = _MalformedStructuredModel()
@@ -98,6 +103,18 @@ def test_empty_provider_generation_has_clear_error() -> None:
     with pytest.raises(ModelGenerationError, match="empty content"):
         provider.generate_text(system_prompt="system", user_prompt="lesson")
     assert generator_model.invoke_kwargs["automatic_function_calling"] == {"disable": True}
+
+
+def test_free_tier_quota_error_is_concise_and_never_suggests_paid_fallback() -> None:
+    provider = GeminiModelProvider.__new__(GeminiModelProvider)
+    provider._generator = _RateLimitedGeneratorModel()  # type: ignore[attr-defined]
+    with pytest.raises(ModelGenerationError) as error:
+        provider.generate_text(system_prompt="system", user_prompt="lesson")
+
+    message = str(error.value)
+    assert "free-tier quota is currently exhausted" in message
+    assert "does not fall back to a paid model" in message
+    assert "free_tier_requests limit reached" not in message
 
 
 def test_substantive_lesson_uses_semantic_provider() -> None:
